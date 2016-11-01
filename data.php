@@ -90,6 +90,9 @@
 			$html .= "<td style='background-color:".$c->carColor."'>".$c->carColor."</td>";
 			$html .= "<td><a href='edit.php?id=".$c->id."'>edit.php</a></td>";
 			
+			
+			
+			
 		$html .= "</tr>";
 	}
 	

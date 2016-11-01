@@ -3,6 +3,7 @@
 	require("functions.php");
 	require("editFunctions.php");
 	
+	
 	//kas kasutaja uuendab andmeid
 	if(isset($_POST["update"])){
 		
@@ -13,11 +14,34 @@
 		
 	}
 	
+	if(isset($_POST["delete"])){
+		
+		deleteCar(cleanInput($_POST["id"]));
+		
+		header("Location: edit.php?id=".$_POST["id"]."&delete=true");
+        exit();	
+		
+	}
+	
+		if(isset($_GET["success"]))
+	{
+		echo "salvestamine onnestus";
+	}
+		if(isset($_GET["delete"]))
+	{
+		deleteCar($_GET["id"]);
+	}
+	//lisame kontrolli , kui ei ole id'd addressireal siis suunan
+	if(!isset($_GET["id"]))
+	{
+		header("Location: data.php");
+		exit();
+	}
 	//saadan kaasa id
 	$c = getSingleCarData($_GET["id"]);
 	var_dump($c);
 
-	
+
 ?>
 <br><br>
 <a href="data.php"> tagasi </a>
@@ -31,4 +55,6 @@
 	<input id="color" name="color" type="color" value="<?=$c->color;?>"><br><br>
   	
 	<input type="submit" name="update" value="Salvesta">
+	<input type="submit" name="delete" value="Kustuta">
   </form>
+  <a href="?id=<?=$_GET["id"];?>&delete=true">kustuta</a>
